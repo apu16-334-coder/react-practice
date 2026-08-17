@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Greeting() {
-    const [name, setName] = useState('stranger')
+    const [name, setName] = useState('')
 
     return (
         <>
@@ -9,7 +9,7 @@ function Greeting() {
                 <input type="text" onChange={e => setName(e.target.value)} />
             </div>
 
-            <p>Hello, {name}!</p>
+            <p>Hello, {name !== '' ? name : 'stranger'}!</p>
         </>
     )
 }

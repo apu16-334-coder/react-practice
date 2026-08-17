@@ -3,9 +3,6 @@ import Toggle from "./day-8/Toggle";
 import Greeting from "./day-8/Greeting";
 
 function App() {
-
-    
-
     return (
         <>
             <Counter />
@@ -17,4 +14,4 @@ function App() {
     )
 }
 
-export default App
+export default App;

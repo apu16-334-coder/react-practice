@@ -4,15 +4,15 @@ function Counter() {
     const [count, setCount] = useState(0);
 
     const increaseCount = () => {
-        setCount(prevCount => ++prevCount);
+        setCount(prevCount => prevCount + 1);
     }
 
     const decrementCount = () => {
-        setCount(prevCount => prevCount === 0 ? 0 : --prevCount)
+        setCount(prevCount => prevCount === 0 ? 0 : prevCount - 1)
     }
 
     const resetCount = () => {
-        setCount(prevCount => prevCount = 0);
+        setCount(0);
     }
 
     return (
