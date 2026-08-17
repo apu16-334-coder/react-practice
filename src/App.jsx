@@ -4,11 +4,15 @@ import Greeting from "./day-8/Greeting";
 
 function App() {
 
-  return (
-    <>
+    
 
-    </>
-  )
+    return (
+        <>
+            <Counter />
+            <Toggle />
+            <Greeting />
+        </>
+    )
 }
 
 export default App
