@@ -11,6 +11,7 @@ function App() {
             <Counter />
             <br />
             <Toggle />
+            <br />
             <Greeting />
         </>
     )
