@@ -9,6 +9,7 @@ function App() {
     return (
         <>
             <Counter />
+            <br />
             <Toggle />
             <Greeting />
         </>
