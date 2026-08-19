@@ -16,23 +16,28 @@ function DeveloperRegistrationForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // reset errors
+        
+        // for reacheck reset errors
         setErrors({})
+
+        let errorFlag = false;
 
         if (!formData.name) {
             setErrors(prev => ({ ...prev, name: 'Name cannot be empty' }));
-            return;
+            errorFlag = true;
         }
 
         if (!formData.email.includes('@')) {
             setErrors(prev => ({ ...prev, email: 'Email must contain @' }))
-            return;
+            errorFlag = true;
         }
 
-        if (formData.password < 6) {
+        if (formData.password.length < 6) {
             setErrors(prev => ({ ...prev, password: 'Password must be at least 6 characters' }))
-            return;
+            errorFlag = true;
         }
+
+        if(errorFlag) return;
 
         setIsSuccess(true);
 
@@ -45,9 +50,6 @@ function DeveloperRegistrationForm() {
             isAvailable: false,
             bio: ''
         })
-
-        // reset errors
-        setErrors({})
 
          setTimeout(() => setIsSuccess(false), 3000)
     }
@@ -66,17 +68,17 @@ function DeveloperRegistrationForm() {
             <form onSubmit={handleSubmit} autoComplete="on">
 
                 <div>
-                    <label htmlFor="name">Enter Name: </label>
+                    <label>Enter Name: </label>
                     <input name="name" type="text" value={formData.name} onChange={handleChange} />
                     {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
                 </div> <br />
                 <div>
-                    <label htmlFor="email">Enter Email: </label>
+                    <label>Enter Email: </label>
                     <input name="email" type="text" value={formData.email} onChange={handleChange} />
                     {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
                 </div> <br />
                 <div>
-                    <label htmlFor="password">Enter Password: </label>
+                    <label>Enter Password: </label>
                     <input name="password" type="password" value={formData.password} onChange={handleChange} />
                     {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
                 </div> <br />
@@ -92,15 +94,15 @@ function DeveloperRegistrationForm() {
 
                 <div>
                     <input type="checkbox" name="isAvailable" checked={formData.isAvailable} onChange={handleChange} />
-                    <label htmlFor="isAvailable">Open to work</label>
+                    <label>Open to work</label>
                 </div> <br />
 
                 <div>
-                    <div><label htmlFor="bio">Enter Your Bio:</label></div>
+                    <div><label>Enter Your Bio:</label></div>
                     <textarea name="bio" rows={10} cols={120} maxLength={200} placeholder="write here..." value={formData.bio} onChange={handleChange}></textarea>
                 </div><br />
 
-                <button>Submit</button>
+                <button type="submit">Submit</button>
 
                 {isSuccess && <h2>Registration is Succesfull</h2>}
 
