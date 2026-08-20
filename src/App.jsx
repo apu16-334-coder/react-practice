@@ -10,7 +10,8 @@ import Greeting from "./day-8/Greeting";*/
 import DeveloperRegistrationForm from "./day-10/DeveloperRegistrationForm";
 
 // Import for day 11
-import TodoList from "./day-11/TodoList";
+// import TodoList from "./day-11/TodoList";
+import SkillManager from "./day-11/SkillManager";
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
             {/* <DeveloperRegistrationForm /> */}
             
             {/* day 11 practice component */}
-            <TodoList />
+            {/* <TodoList /> */}
+            <SkillManager />
 
 
 
