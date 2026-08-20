@@ -7,11 +7,14 @@ import Greeting from "./day-8/Greeting";*/
 // import LiveCharacterCounter from "./day-9/LiveCharacterCounter";
 
 // Import for day 10
-import DeveloperRegistrationForm from "./day-10/DeveloperRegistrationForm";
+// import DeveloperRegistrationForm from "./day-10/DeveloperRegistrationForm";
 
 // Import for day 11
 // import TodoList from "./day-11/TodoList";
-import SkillManager from "./day-11/SkillManager";
+// import SkillManager from "./day-11/SkillManager";
+
+// Import for day 12
+import TodoApp from "./day-12/TodoApp";
 
 
 function App() {
@@ -32,10 +35,10 @@ function App() {
             
             {/* day 11 practice component */}
             {/* <TodoList /> */}
-            <SkillManager />
+            {/* <SkillManager /> */}
 
-
-
+            {/* day 12 practice component */}
+            <TodoApp />
         </>
     )
 }
