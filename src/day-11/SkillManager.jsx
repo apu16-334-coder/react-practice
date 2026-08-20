@@ -35,24 +35,17 @@ function SkillManager() {
     }
 
     function handleToggle(id) {
+        const levelCycle = {
+            Beginner: 'Intermediate',
+            Intermediate: 'Advanced',
+            Advanced: 'Beginner'
+        }
 
-        setSkills(prev => prev.map(skill => {
-            if (skill.id === id) {
-                if (skill.level === 'Beginner') {
-                    return { ...skill, level: 'Intermediate' }
-                }
-
-                if (skill.level === 'Intermediate') {
-                    return { ...skill, level: 'Advanced' }
-                }
-
-                if (skill.level === 'Advanced') {
-                    return { ...skill, level: 'Beginner' }
-                }
-            } else {
-                return skill;
-            }
-        }))
+        setSkills(prev => prev.map(skill =>
+            skill.id === id
+                ? { ...skill, level: levelCycle[skill.level] }
+                : skill
+        ))
     }
 
     return (
@@ -65,7 +58,7 @@ function SkillManager() {
                         <span style={{ marginRight: '20px' }}>Name: {skill.name}</span>
                         {
                             skill.level !== ''
-                                &&
+                            &&
                             <span style={{ marginRight: '20px', cursor: 'pointer' }} onClick={() => handleToggle(skill.id)}>Level: {skill.level}</span>}
                         <button onClick={() => handleDelete(skill.id)}>Delete</button>
                     </li>
@@ -77,7 +70,7 @@ function SkillManager() {
                 <div>
                     <label>Enter Skill Name: </label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} />
-                    {nameError && <p style={{color: 'red'}}>Name can not be empty</p>}
+                    {nameError && <p style={{ color: 'red' }}>Name can not be empty</p>}
                 </div>
                 <div style={{ marginTop: '10px' }}>
                     <label>Choose Skill Level:</label>
@@ -92,9 +85,15 @@ function SkillManager() {
                 <div style={{ marginTop: '10px' }}><button type="submit">Add</button></div>
             </form>
 
-            <p>{skills.length > 0 ? 'Total skills count: ' + skills.length : 'No skills added yet.'}</p>
+            {skills.length === 0
+                ? <p>No skills added yet.</p>
+                : <>
+                    <p>Total skills: {skills.length}</p>
+                    <p>Advanced skills: {skills.filter(s => s.level === 'Advanced').length}</p>
+                </>
 
-            {skills.length > 0 && <p>Advance Skills: {skills.filter(skill => skill.level === 'Advanced').length}</p>}
+
+            }
         </>
     )
 }
