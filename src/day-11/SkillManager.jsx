@@ -8,6 +8,8 @@ function SkillManager() {
 
     const [formData, setFormData] = useState({ name: '', level: '' })
 
+    const [nameError, setNameError] = useState(false);
+
     function handleChange(e) {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -15,30 +17,39 @@ function SkillManager() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        // reset error
+        setNameError(false)
+
+        if (!formData.name.trim()) {
+            setNameError(true)
+            return;
+        }
+
         setSkills(prev => [...prev, { ...formData, id: Date.now() }]);
         setFormData({ name: '', level: '' });
     }
 
     function handleDelete(id) {
-        setSkills(prev => prev.filter(skill => skill.id !==id));
+        setSkills(prev => prev.filter(skill => skill.id !== id));
     }
 
-    function handleToggle (id) {
+    function handleToggle(id) {
 
         setSkills(prev => prev.map(skill => {
-            if(skill.id === id) {
-                if(skill.level === 'Beginner') {
-                    return {...skill, level: 'Intermediate'}
+            if (skill.id === id) {
+                if (skill.level === 'Beginner') {
+                    return { ...skill, level: 'Intermediate' }
                 }
 
-                if(skill.level === 'Intermediate') {
-                    return {...skill, level: 'Advanced'}
+                if (skill.level === 'Intermediate') {
+                    return { ...skill, level: 'Advanced' }
                 }
 
-                if(skill.level === 'Advanced') {
-                    return {...skill, level: 'Beginner'}
+                if (skill.level === 'Advanced') {
+                    return { ...skill, level: 'Beginner' }
                 }
-            }else {
+            } else {
                 return skill;
             }
         }))
@@ -52,7 +63,10 @@ function SkillManager() {
 
                     <li key={skill.id}>
                         <span style={{ marginRight: '20px' }}>Name: {skill.name}</span>
-                        <span style={{ marginRight: '20px', cursor:'pointer' }} onClick={() => handleToggle(skill.id)}>Level: {skill.level}</span>
+                        {
+                            skill.level !== ''
+                                &&
+                            <span style={{ marginRight: '20px', cursor: 'pointer' }} onClick={() => handleToggle(skill.id)}>Level: {skill.level}</span>}
                         <button onClick={() => handleDelete(skill.id)}>Delete</button>
                     </li>
 
@@ -63,6 +77,7 @@ function SkillManager() {
                 <div>
                     <label>Enter Skill Name: </label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} />
+                    {nameError && <p style={{color: 'red'}}>Name can not be empty</p>}
                 </div>
                 <div style={{ marginTop: '10px' }}>
                     <label>Choose Skill Level:</label>
@@ -76,6 +91,10 @@ function SkillManager() {
 
                 <div style={{ marginTop: '10px' }}><button type="submit">Add</button></div>
             </form>
+
+            <p>{skills.length > 0 ? 'Total skills count: ' + skills.length : 'No skills added yet.'}</p>
+
+            {skills.length > 0 && <p>Advance Skills: {skills.filter(skill => skill.level === 'Advanced').length}</p>}
         </>
     )
 }
