@@ -9,6 +9,9 @@ import Greeting from "./day-8/Greeting";*/
 // Import for day 10
 import DeveloperRegistrationForm from "./day-10/DeveloperRegistrationForm";
 
+// Import for day 11
+import TodoList from "./day-11/TodoList";
+
 
 function App() {
     return (
@@ -24,7 +27,12 @@ function App() {
             {/* <LiveCharacterCounter /> */}
 
             {/* day 10 practice component */}
-            <DeveloperRegistrationForm />
+            {/* <DeveloperRegistrationForm /> */}
+            
+            {/* day 11 practice component */}
+            <TodoList />
+
+
 
         </>
     )
