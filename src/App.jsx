@@ -15,7 +15,11 @@ import Greeting from "./day-8/Greeting";*/
 
 // Import for day 12
 // import TodoApp from "./day-12/TodoApp";
-import ProjectFilterApp from "./day-12/ProjectFilterApp";
+// import ProjectFilterApp from "./day-12/ProjectFilterApp";
+
+// Import for day 13
+import UserDirectory from "./day-13/UserDirectory";
+
 
 
 function App() {
@@ -40,7 +44,10 @@ function App() {
 
             {/* day 12 practice component */}
             {/* <TodoApp /> */}
-            <ProjectFilterApp />
+            {/* <ProjectFilterApp /> */}
+
+            {/* day 13 practice component */}
+            <UserDirectory />
 
         </>
     )
