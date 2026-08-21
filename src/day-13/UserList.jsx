@@ -1,4 +1,4 @@
-function UserCard({users}) {
+function UserList({users}) {
     return (
         <>
             <ol>
@@ -9,4 +9,4 @@ function UserCard({users}) {
     )
 }
 
-export default UserCard;
+export default UserList;

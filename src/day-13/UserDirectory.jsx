@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import UserCard from "./UserCard";
+import UserList from "./UserList";
 
 function UserDirectory() {
     const [users, setUsers] = useState([]);
@@ -8,7 +8,7 @@ function UserDirectory() {
     const [query, setQuery] = useState('')
 
     useEffect(() => {
-        async function fetchUsers(params) {
+        async function fetchUsers() {
             try {
                 setIsLoading(true);
 
@@ -35,7 +35,7 @@ function UserDirectory() {
 
     useEffect(() => {
         document.title = `User Directory — ${filteredUsers.length} users`;
-    }, [filteredUsers])
+    }, [filteredUsers.length])
 
 
     if(isLoading) return <p>Page is Loading</p>
@@ -52,7 +52,7 @@ function UserDirectory() {
                 <input type="text" placeholder="search..." value={query} onChange={(e) => setQuery(e.target.value)} />
             </div>
 
-            <UserCard users = {filteredUsers} />
+            <UserList users = {filteredUsers} />
         </>
     )
 }
