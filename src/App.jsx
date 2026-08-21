@@ -14,7 +14,8 @@ import Greeting from "./day-8/Greeting";*/
 // import SkillManager from "./day-11/SkillManager";
 
 // Import for day 12
-import TodoApp from "./day-12/TodoApp";
+// import TodoApp from "./day-12/TodoApp";
+import ProjectFilterApp from "./day-12/ProjectFilterApp";
 
 
 function App() {
@@ -38,7 +39,9 @@ function App() {
             {/* <SkillManager /> */}
 
             {/* day 12 practice component */}
-            <TodoApp />
+            {/* <TodoApp /> */}
+            <ProjectFilterApp />
+
         </>
     )
 }
