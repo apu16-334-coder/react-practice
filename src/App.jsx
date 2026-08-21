@@ -18,7 +18,10 @@ import Greeting from "./day-8/Greeting";*/
 // import ProjectFilterApp from "./day-12/ProjectFilterApp";
 
 // Import for day 13
-import UserDirectory from "./day-13/UserDirectory";
+// import UserDirectory from "./day-13/UserDirectory";
+
+// Import for day 14
+import GitHubApp from "./day-14/GitHubApp";
 
 
 
@@ -47,7 +50,10 @@ function App() {
             {/* <ProjectFilterApp /> */}
 
             {/* day 13 practice component */}
-            <UserDirectory />
+            {/* <UserDirectory /> */}
+
+            {/* day 14 practice component */}
+            <GitHubApp />
 
         </>
     )
