@@ -37,7 +37,7 @@ function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onCha
     function handleSearch(e) {
         e.preventDefault()
 
-        const flag = searchData.query.trim() === '' ? true : false
+        const flag = searchData.query.trim() === '';
         onChangeSearchData(prev => ({ ...prev, isQueryEmpty: flag }))
         if (flag) return
 
@@ -55,7 +55,7 @@ function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onCha
 
     return (
         <>
-            <SearchBar {...searchData} onSearch={handleSearch} onHandle={handleChange} />
+            <SearchBar {...searchData} onSearch={handleSearch} onQueryChange={handleChange} />
 
             <h2>User List</h2>
 

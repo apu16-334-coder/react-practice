@@ -9,8 +9,6 @@ function ProfilePage({ currentUser, onChangePage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    if (!currentUser) return null;
-
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
@@ -45,7 +43,7 @@ function ProfilePage({ currentUser, onChangePage }) {
 
     useEffect(() => {
         document.title = `${currentUser} — GitHub`;
-    }, [])
+    }, [currentUser])
 
     if (isLoading) return <p>Page is Loading</p>
     if (error) return <p style={{ color: 'red' }}>Error: {error}</p>
