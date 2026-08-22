@@ -11,7 +11,7 @@ function GitHubApp() {
         <>
             {currentPage === 'searchPage' && <SearchPage onChangeUser={setCurrentUser} onChangePage={setCurrentPage} />}
 
-            {currentPage === 'profilePage' && <ProfilePage currentUser={currentUser} />}
+            {currentPage === 'profilePage' && <ProfilePage onChangePage={setCurrentPage}  currentUser={currentUser} />}
         </>
     )
 }
