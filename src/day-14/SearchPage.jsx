@@ -49,6 +49,10 @@ function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onCha
         onChangeCurrentUser(username);
     }
 
+    useEffect(() => {
+        document.title = `GitHub Search`;
+    }, [])
+
     return (
         <>
             <SearchBar {...searchData} onSearch={handleSearch} onHandle={handleChange} />

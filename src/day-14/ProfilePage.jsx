@@ -9,28 +9,28 @@ function ProfilePage({ currentUser, onChangePage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    if (!currentUser) return null;
+
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
                 setIsLoading(true);
 
-                console.log(currentUser)
-
-                const response1 = await fetch(`https://api.github.com/users/${currentUser}`);
-
-                const response2 = await fetch(`https://api.github.com/users/${currentUser}/repos?sort=updated&per_page=5`);
+                // Better — fetch both simultaneously with Promise.all
+                const [response1, response2] = await Promise.all([
+                    fetch(`https://api.github.com/users/${currentUser}`),
+                    fetch(`https://api.github.com/users/${currentUser}/repos?sort=updated&per_page=5`)
+                ])
 
                 if (!response1.ok) throw new Error("Fetching user details failed");
 
-                if (!response2.ok) throw new Error("Fetching user details failed");
+                if (!response2.ok) throw new Error("Fetching repos details failed");
 
                 const data = await response1.json();
                 const repos = await response2.json();
 
-                setUserData(data)
-                setRepoData(repos)
-
-                console.log(repos);
+                setUserData(data);
+                setRepoData(repos);
 
             } catch (err) {
                 setError(err.message);
@@ -43,9 +43,9 @@ function ProfilePage({ currentUser, onChangePage }) {
 
     }, [currentUser])
 
-
-
-    if (!currentUser) return null;
+    useEffect(() => {
+        document.title = `${currentUser} — GitHub`;
+    }, [])
 
     if (isLoading) return <p>Page is Loading</p>
     if (error) return <p style={{ color: 'red' }}>Error: {error}</p>
