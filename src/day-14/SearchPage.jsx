@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import UserList from "./UserList";
 
-function SearchPage() {
+function SearchPage({onChangePage, onChangeUser}) {
     const [searchData, setSearchData] = useState({
         query: '',
         isQueryEmpty: null
@@ -49,15 +49,20 @@ function SearchPage() {
         fetchGitHubUsers();
     }
 
+    function handleProfileView(username) {
+        onChangePage('profilePage');
+        onChangeUser(username);
+    }
+
     return (
         <>
             <SearchBar {...searchData} onSearch={handleSearch} onHandle={handleChange} />
 
             <h2>User List</h2>
 
-            {isEmpty 
+            {isEmpty
                 ? <p>No users found for {searchData.query}</p>
-                : <UserList query={searchData.query} users={users} isLoading={isLoading} error={error} />
+                : <UserList onProfileView={handleProfileView} query={searchData.query} users={users} isLoading={isLoading} error={error} />
             }
         </>
     )

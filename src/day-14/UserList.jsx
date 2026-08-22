@@ -1,6 +1,6 @@
 import UserCard from "./UserCard";
 
-function UserList({users, isLoading, error}) {
+function UserList({users, isLoading, error, onProfileView}) {
 
     if(isLoading) return <p>Page is Loading</p>
     if(error) return <p style={{ color: 'red' }}>Error: {error}</p>
@@ -9,7 +9,7 @@ function UserList({users, isLoading, error}) {
         <>
             <ol>
                 {users.map(u => (
-                    <UserCard  key = {u.id} avatarUrl= {u.avatar_url} username = {u.login} />
+                    <UserCard  key = {u.id} onProfileView={onProfileView} avatarUrl= {u.avatar_url} username = {u.login} />
                 ))}
             </ol>
         </>
