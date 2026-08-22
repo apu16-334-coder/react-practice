@@ -2,19 +2,14 @@ import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import UserList from "./UserList";
 
-function SearchPage({onChangePage, onChangeUser}) {
-    const [searchData, setSearchData] = useState({
-        query: '',
-        isQueryEmpty: null
-    });
-
-    const [users, setUsers] = useState([]);
+function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onChangePage, onChangeCurrentUser}) {
+    
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isEmpty, setIsEmpty] = useState(false);
 
     function handleChange(e) {
-        setSearchData(prev => ({ ...prev, query: e.target.value }))
+        onChangeSearchData(prev => ({ ...prev, query: e.target.value }))
         setIsEmpty(false)
     }
 
@@ -28,7 +23,7 @@ function SearchPage({onChangePage, onChangeUser}) {
 
             const data = await response.json();
 
-            setUsers(data.items);
+            onChangeUsers(data.items);
 
             setIsEmpty(data.items.length === 0)
 
@@ -43,7 +38,7 @@ function SearchPage({onChangePage, onChangeUser}) {
         e.preventDefault()
 
         const flag = searchData.query.trim() === '' ? true : false
-        setSearchData(prev => ({ ...prev, isQueryEmpty: flag }))
+        onChangeSearchData(prev => ({ ...prev, isQueryEmpty: flag }))
         if (flag) return
 
         fetchGitHubUsers();
@@ -51,7 +46,7 @@ function SearchPage({onChangePage, onChangeUser}) {
 
     function handleProfileView(username) {
         onChangePage('profilePage');
-        onChangeUser(username);
+        onChangeCurrentUser(username);
     }
 
     return (
