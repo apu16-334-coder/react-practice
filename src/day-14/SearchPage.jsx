@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SearchBar from "./SearchBar";
 import UserList from "./UserList";
 
-function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onChangePage, onChangeCurrentUser}) {
+function SearchPage({ searchData, onChangeSearchData, users, onChangeUsers, onChangePage, onChangeCurrentUser }) {
     
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isEmpty, setIsEmpty] = useState(false);
+    const abortControllerRef = useRef(null);
 
     function handleChange(e) {
         onChangeSearchData(prev => ({ ...prev, query: e.target.value }))
@@ -14,10 +15,20 @@ function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onCha
     }
 
     async function fetchGitHubUsers() {
+        // Cancel any previous in-flight request
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+
+        // Create fresh controller for this request
+        abortControllerRef.current = new AbortController();
+
         try {
             setIsLoading(true);
+            setError(null);
 
-            const response = await fetch(`https://api.github.com/search/users?q=${searchData.query}`);
+            const response = await fetch(
+                `https://api.github.com/search/users?q=${searchData.query}`,
+                { signal: abortControllerRef.current.signal } // attach signal
+            )
 
             if (!response.ok) throw new Error("Fetching user failed");
 
@@ -27,10 +38,16 @@ function SearchPage({searchData, onChangeSearchData, users, onChangeUsers, onCha
 
             setIsEmpty(data.items.length === 0)
 
+            console.log(`Query "${searchData.query}" completed`);
+
         } catch (err) {
+            if (err.name === 'AbortError') return // ignore — expected
             setError(err.message);
         } finally {
-            setIsLoading(false);
+            // Only set loading false if this is the current request
+            if (abortControllerRef.current?.signal.aborted === false) {
+                setIsLoading(false);
+            }
         }
     }
 
