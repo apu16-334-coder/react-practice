@@ -54,8 +54,6 @@ function SearchPage({ query, onQueryChange, users, onChangeUsers, onChangePage, 
             clearTimeout(timer)    // cancel debounce timer
             controller.abort()     // cancel in-flight fetch
         }
-
-
     }, [query])
 
     function handleProfileView(username) {
