@@ -2,64 +2,61 @@ import { useEffect, useState, useRef } from "react";
 import SearchBar from "./SearchBar";
 import UserList from "./UserList";
 
-function SearchPage({ searchData, onChangeSearchData, users, onChangeUsers, onChangePage, onChangeCurrentUser }) {
-    
-    const [isLoading, setIsLoading] = useState(false);
+function SearchPage({ query, onQueryChange, users, onChangeUsers, onChangePage, onChangeCurrentUser }) {
+
+    const [status, setStatus] = useState('idle')
+    // idle | loading | empty | success
     const [error, setError] = useState(null);
-    const [isEmpty, setIsEmpty] = useState(false);
-    const abortControllerRef = useRef(null);
 
     function handleChange(e) {
-        onChangeSearchData(prev => ({ ...prev, query: e.target.value }))
-        setIsEmpty(false)
+        onQueryChange(e.target.value);
     }
 
-    async function fetchGitHubUsers() {
-        // Cancel any previous in-flight request
-        if (abortControllerRef.current) abortControllerRef.current.abort();
+    useEffect(() => {
+        // if query is empty
+        if (!query.trim()) {
+            // reset all states when query is cleared
+            setStatus('idle');
+            setError(null);
+            onChangeUsers([]);
+            return;
+        }
 
         // Create fresh controller for this request
-        abortControllerRef.current = new AbortController();
+        const controller = new AbortController();
 
-        try {
-            setIsLoading(true);
-            setError(null);
+        // set time out for debounce
+        const timer = setTimeout(async () => {
+            try {
+                setStatus('loading');
+                setError(null);
 
-            const response = await fetch(
-                `https://api.github.com/search/users?q=${searchData.query}`,
-                { signal: abortControllerRef.current.signal } // attach signal
-            )
+                const response = await fetch(
+                    `https://api.github.com/search/users?q=${query}`,
+                    { signal: controller.signal } // attach signal
+                )
 
-            if (!response.ok) throw new Error("Fetching user failed");
+                if (!response.ok) throw new Error("Fetching user failed");
 
-            const data = await response.json();
+                const data = await response.json();
 
-            onChangeUsers(data.items);
+                onChangeUsers(data.items);
 
-            setIsEmpty(data.items.length === 0)
+                setStatus(data.items.length === 0 ? 'empty' : 'success');
 
-            console.log(`Query "${searchData.query}" completed`);
-
-        } catch (err) {
-            if (err.name === 'AbortError') return // ignore — expected
-            setError(err.message);
-        } finally {
-            // Only set loading false if this is the current request
-            if (abortControllerRef.current?.signal.aborted === false) {
-                setIsLoading(false);
+            } catch (err) {
+                if (err.name === 'AbortError') return // ignore — expected
+                setError(err.message);
             }
+        }, 500)
+
+        return () => {
+            clearTimeout(timer)    // cancel debounce timer
+            controller.abort()     // cancel in-flight fetch
         }
-    }
 
-    function handleSearch(e) {
-        e.preventDefault()
 
-        const flag = searchData.query.trim() === '';
-        onChangeSearchData(prev => ({ ...prev, isQueryEmpty: flag }))
-        if (flag) return
-
-        fetchGitHubUsers();
-    }
+    }, [query])
 
     function handleProfileView(username) {
         onChangePage('profilePage');
@@ -72,14 +69,13 @@ function SearchPage({ searchData, onChangeSearchData, users, onChangeUsers, onCh
 
     return (
         <>
-            <SearchBar {...searchData} onSearch={handleSearch} onQueryChange={handleChange} />
+            <SearchBar query={query} onQueryChange={handleChange} />
 
-            <h2>User List</h2>
-
-            {isEmpty
-                ? <p>No users found for {searchData.query}</p>
-                : <UserList onProfileView={handleProfileView} query={searchData.query} users={users} isLoading={isLoading} error={error} />
-            }
+            {status === 'idle' && <p>Enter a username to search</p>}
+            {status === 'loading' && <p>Page is Loading</p>}
+            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            {status === 'empty' && <p>No users found for "{query}"</p>}
+            {status === 'success' && <UserList onProfileView={handleProfileView} users={users} />}
         </>
     )
 }
