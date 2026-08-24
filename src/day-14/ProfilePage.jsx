@@ -10,14 +10,21 @@ function ProfilePage({ currentUser, onChangePage }) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const fetchUserDetails = async () => {
             try {
                 setIsLoading(true);
+                setError(null);
 
                 // Better — fetch both simultaneously with Promise.all
                 const [response1, response2] = await Promise.all([
-                    fetch(`https://api.github.com/users/${currentUser}`),
-                    fetch(`https://api.github.com/users/${currentUser}/repos?sort=updated&per_page=5`)
+                    fetch(`https://api.github.com/users/${currentUser}`,
+                        {signal: controller.signal}
+                    ),
+                    fetch(`https://api.github.com/users/${currentUser}/repos?sort=updated&per_page=5`,
+                        {signal: controller.signal}
+                    )
                 ])
 
                 if (!response1.ok) throw new Error("Fetching user details failed");
@@ -31,13 +38,18 @@ function ProfilePage({ currentUser, onChangePage }) {
                 setRepoData(repos);
 
             } catch (err) {
+                if (err.name === 'AbortError') return // ignore — expected
                 setError(err.message);
             } finally {
-                setIsLoading(false);
+                if(!controller.signal.aborted) setIsLoading(false);
             }
 
         }
         fetchUserDetails();
+
+        return () => {
+            return () => controller.abort(); // aborts BOTH fetches simultaneously
+        }
 
     }, [currentUser])
 
