@@ -20,10 +20,10 @@ function ProfilePage({ currentUser, onChangePage }) {
                 // Better — fetch both simultaneously with Promise.all
                 const [response1, response2] = await Promise.all([
                     fetch(`https://api.github.com/users/${currentUser}`,
-                        {signal: controller.signal}
+                        { signal: controller.signal }
                     ),
                     fetch(`https://api.github.com/users/${currentUser}/repos?sort=updated&per_page=5`,
-                        {signal: controller.signal}
+                        { signal: controller.signal }
                     )
                 ])
 
@@ -41,15 +41,13 @@ function ProfilePage({ currentUser, onChangePage }) {
                 if (err.name === 'AbortError') return // ignore — expected
                 setError(err.message);
             } finally {
-                if(!controller.signal.aborted) setIsLoading(false);
+                if (!controller.signal.aborted) setIsLoading(false);
             }
 
         }
         fetchUserDetails();
 
-        return () => {
-            return () => controller.abort(); // aborts BOTH fetches simultaneously
-        }
+        return () => controller.abort(); // aborts BOTH fetches simultaneously
 
     }, [currentUser])
 
