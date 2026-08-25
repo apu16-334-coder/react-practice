@@ -21,7 +21,13 @@ import Greeting from "./day-8/Greeting";*/
 // import UserDirectory from "./day-13/UserDirectory";
 
 // Import for day 14
-import GitHubApp from "./day-14/GitHubApp";
+// import GitHubApp from "./day-14/GitHubApp";
+
+// Import for day 15
+import Panel from "./day-15/Panel";
+import PanelHeader from "./day-15/PanelHeader";
+import PanelFooter from "./day-15/PanelFooter";
+import StatCard from "./day-15/StatCard";
 
 
 
@@ -40,7 +46,7 @@ function App() {
 
             {/* day 10 practice component */}
             {/* <DeveloperRegistrationForm /> */}
-            
+
             {/* day 11 practice component */}
             {/* <TodoList /> */}
             {/* <SkillManager /> */}
@@ -53,7 +59,31 @@ function App() {
             {/* <UserDirectory /> */}
 
             {/* day 14 practice component */}
-            <GitHubApp />
+            {/* <GitHubApp /> */}
+
+            {/* day 15 practice component */}
+            <Panel>
+                <PanelHeader>Profile Info</PanelHeader>
+                <p>Name: Muhammad Apu Hossain</p>
+                <p>Role: Backend Developer</p>
+            </Panel>
+
+            <Panel>
+                <PanelHeader>Confirm Action</PanelHeader>
+                <p>Are you sure you want to proceed?</p>
+                <PanelFooter>
+                    <button>Cancel</button>
+                    <button>Confirm</button>
+                </PanelFooter>
+            </Panel>
+
+            <Panel>
+                <p>This is a simple notice panel with no header.</p>
+            </Panel>
+
+            <StatCard label="Total Projects" value={5}>
+                <p>2 featured</p>
+            </StatCard>
 
         </>
     )
