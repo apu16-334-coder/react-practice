@@ -32,7 +32,7 @@ import Greeting from "./day-8/Greeting";*/
 // Import for day 17
 import { Routes, Route } from 'react-router-dom';
 import Layout from './day-17/component/Layout';
-import Conatct from './day-17/pages/Contact';
+import Contact from './day-17/pages/Contact';
 import Home from './day-17/pages/Home'
 import Projects from './day-17/pages/Projects';
 import Skills from './day-17/pages/Skills'
@@ -97,7 +97,7 @@ function App() {
                     <Route index element={<Home/>} />
                     <Route path='projects' element={<Projects/>} />
                     <Route path='skills' element={<Skills/>} />
-                    <Route path='contact' element={<Conatct/>} />
+                    <Route path='contact' element={<Contact/>} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>

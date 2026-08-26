@@ -1,4 +1,4 @@
-function Conatct() {
+function Contact() {
     return (
         <>
             <h2>Contact</h2>
@@ -9,4 +9,4 @@ function Conatct() {
     )
 }
 
-export default Conatct;
+export default Contact;
