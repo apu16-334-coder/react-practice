@@ -24,12 +24,19 @@ import Greeting from "./day-8/Greeting";*/
 // import GitHubApp from "./day-14/GitHubApp";
 
 // Import for day 15
-import Panel from "./day-15/Panel";
-import PanelHeader from "./day-15/PanelHeader";
-import PanelFooter from "./day-15/PanelFooter";
-import StatCard from "./day-15/StatCard";
+// import Panel from "./day-15/Panel";
+// import PanelHeader from "./day-15/PanelHeader";
+// import PanelFooter from "./day-15/PanelFooter";
+// import StatCard from "./day-15/StatCard";
 
-
+// Import for day 17
+import { Routes, Route } from 'react-router-dom';
+import Layout from './day-17/component/Layout';
+import Conatct from './day-17/pages/Contact';
+import Home from './day-17/pages/Home'
+import Projects from './day-17/pages/Projects';
+import Skills from './day-17/pages/Skills'
+import NotFound from './day-17/pages/NotFound'
 
 function App() {
     return (
@@ -62,7 +69,7 @@ function App() {
             {/* <GitHubApp /> */}
 
             {/* day 15 practice component */}
-            <Panel>
+            {/* <Panel>
                 <PanelHeader>Profile Info</PanelHeader>
                 <p>Name: Muhammad Apu Hossain</p>
                 <p>Role: Backend Developer</p>
@@ -83,8 +90,20 @@ function App() {
 
             <StatCard label="Total Projects" value={5}>
                 <p>2 featured</p>
-            </StatCard>
+            </StatCard> */}
 
+            <Routes>
+                <Route path='/' element={<Layout />}> 
+                    <Route index element={<Home/>} />
+                    <Route path='projects' element={<Projects/>} />
+                    <Route path='skills' element={<Skills/>} />
+                    <Route path='contact' element={<Conatct/>} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+            
+
+            
         </>
     )
 }
