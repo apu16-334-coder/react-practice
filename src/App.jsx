@@ -30,13 +30,23 @@ import Greeting from "./day-8/Greeting";*/
 // import StatCard from "./day-15/StatCard";
 
 // Import for day 17
+// import { Routes, Route } from 'react-router-dom';
+// import Layout from './day-17/component/Layout';
+// import Contact from './day-17/pages/Contact';
+// import Home from './day-17/pages/Home'
+// import Projects from './day-17/pages/Projects';
+// import Skills from './day-17/pages/Skills'
+// import NotFound from './day-17/pages/NotFound'
+
+// Import for day 18
 import { Routes, Route } from 'react-router-dom';
-import Layout from './day-17/component/Layout';
-import Contact from './day-17/pages/Contact';
-import Home from './day-17/pages/Home'
-import Projects from './day-17/pages/Projects';
-import Skills from './day-17/pages/Skills'
-import NotFound from './day-17/pages/NotFound'
+import Layout from './day-18/component/Layout';
+import Contact from './day-18/pages/Contact';
+import Home from './day-18/pages/Home'
+import Projects from './day-18/pages/Projects';
+import ProjectDetails from './day-18/component/ProjectDetails';
+import Skills from './day-18/pages/Skills'
+import NotFound from './day-18/pages/NotFound'
 
 function App() {
     return (
@@ -92,7 +102,8 @@ function App() {
                 <p>2 featured</p>
             </StatCard> */}
 
-            <Routes>
+            {/* day 17 practice component */}
+            {/* <Routes>
                 <Route path='/' element={<Layout />}> 
                     <Route index element={<Home/>} />
                     <Route path='projects' element={<Projects/>} />
@@ -100,10 +111,19 @@ function App() {
                     <Route path='contact' element={<Contact/>} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
-            </Routes>
-            
+            </Routes> */}
 
-            
+            {/* day 18 practice component */}
+            <Routes>
+                <Route path='/' element={<Layout />}> 
+                    <Route index element={<Home/>} />
+                    <Route path='projects' element={<Projects/>} />
+                    <Route path='projects/:id' element={<ProjectDetails/>} />
+                    <Route path='skills' element={<Skills/>} />
+                    <Route path='contact' element={<Contact/>} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>   
         </>
     )
 }
