@@ -49,6 +49,18 @@ import Greeting from "./day-8/Greeting";*/
 // import NotFound from './day-18/pages/NotFound'
 
 // Import for day 19
+// import { Routes, Route } from 'react-router-dom';
+// import Layout from './day-18/component/Layout';
+// import Contact from './day-18/pages/Contact';
+// import Home from './day-18/pages/Home'
+// import Projects from './day-18/pages/Projects';
+// import ProjectDetails from './day-18/component/ProjectDetails';
+// import Skills from './day-18/pages/Skills'
+// import NotFound from './day-18/pages/NotFound'
+
+// import { ThemeProvider } from './day-19/context/ThemeContext'
+
+// Import for day 20
 import { Routes, Route } from 'react-router-dom';
 import Layout from './day-18/component/Layout';
 import Contact from './day-18/pages/Contact';
@@ -138,6 +150,20 @@ function App() {
             </Routes>    */}
 
             {/* day 19 practice component */}
+            {/* <ThemeProvider>
+                <Routes>
+                    <Route path='/' element={<Layout />}>
+                        <Route index element={<Home />} />
+                        <Route path='projects' element={<Projects />} />
+                        <Route path='projects/:id' element={<ProjectDetails />} />
+                        <Route path='skills' element={<Skills />} />
+                        <Route path='contact' element={<Contact />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+                </Routes>
+            </ThemeProvider> */}
+
+            {/* day 20 practice component */}
             <ThemeProvider>
                 <Routes>
                     <Route path='/' element={<Layout />}>
@@ -150,6 +176,7 @@ function App() {
                     </Route>
                 </Routes>
             </ThemeProvider>
+
         </>
     )
 }
