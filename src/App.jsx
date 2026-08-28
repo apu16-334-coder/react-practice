@@ -1,7 +1,7 @@
-/*Import for day 8
+// Import for day 8
 import Counter from "./day-8/Counter";
 import Toggle from "./day-8/Toggle";
-import Greeting from "./day-8/Greeting";*/
+import Greeting from "./day-8/Greeting";
 
 // Import for day 9
 // import LiveCharacterCounter from "./day-9/LiveCharacterCounter";
@@ -76,11 +76,11 @@ function App() {
     return (
         <>
             {/* day 8 practice component */}
-            {/* <Counter />
+            <Counter />
             <br />
             <Toggle />
             <br />
-            <Greeting /> */}
+            <Greeting />
 
             {/* day 9 practice component */}
             {/* <LiveCharacterCounter /> */}
@@ -163,7 +163,7 @@ function App() {
                 </Routes>
             </ThemeProvider> */}
 
-            {/* day 20 practice component */}
+            {/* day 20 practice component
             <ThemeProvider>
                 <Routes>
                     <Route path='/' element={<Layout />}>
@@ -175,7 +175,7 @@ function App() {
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>
-            </ThemeProvider>
+            </ThemeProvider> */}
 
         </>
     )
